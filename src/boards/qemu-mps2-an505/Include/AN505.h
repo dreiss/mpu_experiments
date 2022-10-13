@@ -1,7 +1,7 @@
 /*************************************************************************//**
- * @file     <Device>.h
+ * @file     AN505.h
  * @brief    CMSIS-Core(M) Device Peripheral Access Layer Header File for
- *           Device <Device>
+ *           Device QEMU-mps2-an505
  * @version  V1.0.0
  * @date     20. January 2021
  *****************************************************************************/
@@ -23,8 +23,8 @@
  * limitations under the License.
  */
 
-#ifndef <Device>_H      /* ToDo: Replace '<Device>' with your device name */
-#define <Device>_H
+#ifndef AN505_H
+#define AN505_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,31 +40,124 @@ typedef enum IRQn
 /* ================     Cortex-M Core Exception Numbers     ================ */
 
 /* ToDo: Add Cortex exception numbers according the used Cortex-Core */
-  Reset_IRQn             = -15,  /*  1 Reset Vector
-                                       invoked on Power up and warm reset */
-  NonMaskableInt_IRQn    = -14,  /*  2 Non maskable Interrupt
-                                       cannot be stopped or preempted */
-  HardFault_IRQn         = -13,  /*  3 Hard Fault
-                                       all classes of Fault */
-  MemoryManagement_IRQn  = -12,  /*  4 Memory Management
-                                       MPU mismatch, including Access Violation and No Match */
-  BusFault_IRQn          = -11,  /*  5 Bus Fault
-                                       Pre-Fetch-, Memory Access, other address/memory Fault */
-  UsageFault_IRQn        = -10,  /*  6 Usage Fault
-                                       i.e. Undef Instruction, Illegal State Transition */
+  Reset_IRQn             = -15,  /*  1 Reset Vector; invoked on Power up and warm reset */
+  NonMaskableInt_IRQn    = -14,  /*  2 Non maskable Interrupt; cannot be stopped or preempted */
+  HardFault_IRQn         = -13,  /*  3 Hard Fault; all classes of Fault */
+  MemoryManagement_IRQn  = -12,  /*  4 Memory Management; MPU mismatch, including Access Violation and No Match */
+  BusFault_IRQn          = -11,  /*  5 Bus Fault; Pre-Fetch-, Memory Access, other address/memory Fault */
+  UsageFault_IRQn        = -10,  /*  6 Usage Fault; i.e. Undef Instruction, Illegal State Transition */
   SecureFault_IRQn       =  -9,  /*  7 Secure Fault Interrupt */
   SVCall_IRQn            =  -5,  /* 11 System Service Call via SVC instruction */
   DebugMonitor_IRQn      =  -4,  /* 12 Debug Monitor */
   PendSV_IRQn            =  -2,  /* 14 Pendable request for system service */
   SysTick_IRQn           =  -1,  /* 15 System Tick Timer */
 
-/* ================        <Device> Interrupt Numbers       ================ */
-/* ToDo: Add here your device specific interrupt numbers
-         according the interrupt handlers defined in startup_Device.s
-         eg.: Interrupt for Timer#1       TIM1_IRQHandler   ->   TIM1_IRQn */
-  <DeviceInterrupt first>_IRQn = 0,    /* first Device Interrupt*/
-  ...
-  <DeviceInterrupt last>_IRQn  = n     /* last Device Interrupt */
+/* ================        AN505 Interrupt Numbers       ================ */
+  // IRQ numbers taken from the trusted-firmware-m repository's AN519 code
+  // and checked against the AN505 PDF.
+  // trusted-firmware-m has the same ARM copyright as this file.
+  NONSEC_WATCHDOG_RESET_IRQn  = 0,    /* Non-Secure Watchdog Reset Interrupt */
+  NONSEC_WATCHDOG_IRQn        = 1,    /* Non-Secure Watchdog Interrupt */
+  S32K_TIMER_IRQn             = 2,    /* S32K Timer Interrupt */
+  TIMER0_IRQn                 = 3,    /* TIMER 0 Interrupt */
+  TIMER1_IRQn                 = 4,    /* TIMER 1 Interrupt */
+  DUALTIMER_IRQn              = 5,    /* Dual Timer Interrupt */
+  MPC_IRQn                    = 9,    /* MPC Combined (Secure) Interrupt */
+  PPC_IRQn                    = 10,   /* PPC Combined (Secure) Interrupt */
+  MSC_IRQn                    = 11,   /* MSC Combined (Secure) Interrput */
+  BRIDGE_ERROR_IRQn           = 12,   /* Bridge Error Combined (Secure) Interrupt */
+  UARTRX0_IRQn                = 32,   /* UART 0 RX Interrupt */
+  UARTTX0_IRQn                = 33,   /* UART 0 TX Interrupt */
+  UARTRX1_IRQn                = 34,   /* UART 1 RX Interrupt */
+  UARTTX1_IRQn                = 35,   /* UART 1 TX Interrupt */
+  UARTRX2_IRQn                = 36,   /* UART 2 RX Interrupt */
+  UARTTX2_IRQn                = 37,   /* UART 2 TX Interrupt */
+  UARTRX3_IRQn                = 38,   /* UART 3 RX Interrupt */
+  UARTTX3_IRQn                = 39,   /* UART 3 TX Interrupt */
+  UARTRX4_IRQn                = 40,   /* UART 4 RX Interrupt */
+  UARTTX4_IRQn                = 41,   /* UART 4 TX Interrupt */
+  UART0_IRQn                  = 42,   /* UART 0 combined Interrupt */
+  UART1_IRQn                  = 43,   /* UART 1 combined Interrupt */
+  UART2_IRQn                  = 44,   /* UART 2 combined Interrupt */
+  UART3_IRQn                  = 45,   /* UART 3 combined Interrupt */
+  UART4_IRQn                  = 46,   /* UART 4 combined Interrupt */
+  UARTOVF_IRQn                = 47,   /* UART Overflow (0, 1, 2, 3 & 4) */
+  ETHERNET_IRQn               = 48,   /* Ethernet Interrupt */
+  I2S_IRQn                    = 49,   /* Audio I2S Interrupt */
+  TSC_IRQn                    = 50,   /* Touch Screen Interrupt */
+  SPI0_IRQn                   = 51,   /* SPI 0 Interrupt */
+  SPI1_IRQn                   = 52,   /* SPI 1 Interrupt */
+  SPI2_IRQn                   = 53,   /* SPI 2 Interrupt */
+  SPI3_IRQn                   = 54,   /* SPI 3 Interrupt */
+  SPI4_IRQn                   = 55,   /* SPI 4 Interrupt */
+  DMA0_ERROR_IRQn             = 56,   /* DMA 0 Error Interrupt */
+  DMA0_TC_IRQn                = 57,   /* DMA 0 Terminal Count Interrupt */
+  DMA0_IRQn                   = 58,   /* DMA 0 Combined Interrupt */
+  DMA1_ERROR_IRQn             = 59,   /* DMA 1 Error Interrupt */
+  DMA1_TC_IRQn                = 60,   /* DMA 1 Terminal Count Interrupt */
+  DMA1_IRQn                   = 61,   /* DMA 1 Combined Interrupt */
+  DMA2_ERROR_IRQn             = 62,   /* DMA 2 Error Interrupt */
+  DMA2_TC_IRQn                = 63,   /* DMA 2 Terminal Count Interrupt */
+  DMA2_IRQn                   = 64,   /* DMA 2 Combined Interrupt */
+  DMA3_ERROR_IRQn             = 65,   /* DMA 3 Error Interrupt */
+  DMA3_TC_IRQn                = 66,   /* DMA 3 Terminal Count Interrupt */
+  DMA3_IRQn                   = 67,   /* DMA 3 Combined Interrupt */
+  GPIO0_IRQn                  = 68,   /* GPIO 0 Combined Interrupt */
+  GPIO1_IRQn                  = 69,   /* GPIO 1 Combined Interrupt */
+  GPIO2_IRQn                  = 70,   /* GPIO 2 Combined Interrupt */
+  GPIO3_IRQn                  = 71,   /* GPIO 3 Combined Interrupt */
+  GPIO0_0_IRQn                = 72,   /* GPIO0 has 16 pins with IRQs */
+  GPIO0_1_IRQn                = 73,
+  GPIO0_2_IRQn                = 74,
+  GPIO0_3_IRQn                = 75,
+  GPIO0_4_IRQn                = 76,
+  GPIO0_5_IRQn                = 77,
+  GPIO0_6_IRQn                = 78,
+  GPIO0_7_IRQn                = 79,
+  GPIO0_8_IRQn                = 80,
+  GPIO0_9_IRQn                = 81,
+  GPIO0_10_IRQn               = 82,
+  GPIO0_11_IRQn               = 83,
+  GPIO0_12_IRQn               = 84,
+  GPIO0_13_IRQn               = 85,
+  GPIO0_14_IRQn               = 86,
+  GPIO0_15_IRQn               = 87,
+  GPIO1_0_IRQn                = 88,   /* GPIO1 has 16 pins with IRQs */
+  GPIO1_1_IRQn                = 89,
+  GPIO1_2_IRQn                = 90,
+  GPIO1_3_IRQn                = 91,
+  GPIO1_4_IRQn                = 92,
+  GPIO1_5_IRQn                = 93,
+  GPIO1_6_IRQn                = 94,
+  GPIO1_7_IRQn                = 95,
+  GPIO1_8_IRQn                = 96,
+  GPIO1_9_IRQn                = 97,
+  GPIO1_10_IRQn               = 98,
+  GPIO1_11_IRQn               = 99,
+  GPIO1_12_IRQn               = 100,
+  GPIO1_13_IRQn               = 101,
+  GPIO1_14_IRQn               = 102,
+  GPIO1_15_IRQn               = 103,
+  GPIO2_0_IRQn                = 104,   /* GPIO2 has 16 pins with IRQs */
+  GPIO2_1_IRQn                = 105,
+  GPIO2_2_IRQn                = 106,
+  GPIO2_3_IRQn                = 107,
+  GPIO2_4_IRQn                = 108,
+  GPIO2_5_IRQn                = 109,
+  GPIO2_6_IRQn                = 110,
+  GPIO2_7_IRQn                = 111,
+  GPIO2_8_IRQn                = 112,
+  GPIO2_9_IRQn                = 113,
+  GPIO2_10_IRQn               = 114,
+  GPIO2_11_IRQn               = 115,
+  GPIO2_12_IRQn               = 116,
+  GPIO2_13_IRQn               = 117,
+  GPIO2_14_IRQn               = 118,
+  GPIO2_15_IRQn               = 119,
+  GPIO3_0_IRQn                = 120,   /* GPIO3 has 4 pins with IRQs */
+  GPIO3_1_IRQn                = 121,
+  GPIO3_2_IRQn                = 122,
+  GPIO3_3_IRQn                = 123,
 } IRQn_Type;
 
 
@@ -72,124 +165,26 @@ typedef enum IRQn
 /* ============      Processor and Core Peripheral Section      ============ */
 /* ========================================================================= */
 
-/* ================ Start of section using anonymous unions ================ */
-#if   defined (__CC_ARM)
-  #pragma push
-  #pragma anon_unions
-#elif defined (__ICCARM__)
-  #pragma language=extended
-#elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-  #pragma clang diagnostic push
-  #pragma clang diagnostic ignored "-Wc11-extensions"
-  #pragma clang diagnostic ignored "-Wreserved-id-macro"
-#elif defined (__GNUC__)
-  /* anonymous unions are enabled by default */
-#elif defined (__TMS470__)
-  /* anonymous unions are enabled by default */
-#elif defined (__TASKING__)
-  #pragma warning 586
-#elif defined (__CSMC__)
-  /* anonymous unions are enabled by default */
-#else
-  #warning Not supported compiler type
-#endif
-
 
 /* ================    Configuration of Core Peripherals    ================ */
-/* ToDo: Set the defines according your Device */
-/* ToDo: Define the correct core revision
-         valid CMSIS core revision macro names are:
-           __CM0_REV, __CM0PLUS_REV, __CM1_REV, __CM3_REV, __CM4_REV, __CM7_REV
-           __CM23_REV, __CM33_REV, __CM35P_REV, __CM55_REV
-           __SC000_REV, __SC300_REV */
-#define __CM#_REV               0x0201U  /* Core Revision r2p1 */
-/* ToDo: define the correct core features for the <Device> */
+#define __CM33_REV              0x0001U   /* Core revision r0p1 */
 #define __Vendor_SysTickConfig  0U       /* Set to 1 if different SysTick Config is used */
-#define __NVIC_PRIO_BITS        3U       /* Number of Bits used for Priority Levels */
+#define __NVIC_PRIO_BITS        4U       /* Number of Bits used for Priority Levels */
 #define __VTOR_PRESENT          1U       /* Set to 1 if VTOR is present */
 #define __MPU_PRESENT           1U       /* Set to 1 if MPU is present */
-#define __FPU_PRESENT           0U       /* Set to 1 if FPU is present */
+#define __FPU_PRESENT           1U       /* Set to 1 if FPU is present */
 #define __FPU_DP                0U       /* Set to 1 if FPU is double precision FPU (default is single precision FPU) */
 #define __DSP_PRESENT           1U       /* Set to 1 if DSP extension are present */
 #define __SAUREGION_PRESENT     1U       /* Set to 1 if SAU regions are present */
-#define __PMU_PRESENT           1U       /* Set to 1 if PMU is present */
+#define __PMU_PRESENT           0U       /* Set to 1 if PMU is present */
 #define __PMU_NUM_EVENTCNT      8U       /* Set number of PMU Event Counters */
 #define __ICACHE_PRESENT        0U       /* Set to 1 if I-Cache is present */
 #define __DCACHE_PRESENT        0U       /* Set to 1 if D-Cache is present */
 #define __DTCM_PRESENT          0U       /* Set to 1 if DTCM is present */
 
 
-/* ToDo: Include the CMSIS core header file according your device.
-         valid CMSIS core header files are:
-           core_cm0.h, core_cm0plus.h, core_cm1.h, core_cm3.h, core_cm4.h, core_cm7.h
-           core_cm23.h, core_cm33.h, core_cm35p.h, core_cm55.h
-           core_sc000.h, core_sc300.h */
-#include <core_cm#.h>                           /* Processor and core peripherals */
-/* ToDo: Include your system_<Device>.h file
-         replace '<Device>' with your device name */
-#include "system_<Device>.h"                    /* System Header */
-
-
-
-/* ========================================================================= */
-/* ============       Device Specific Peripheral Section        ============ */
-/* ========================================================================= */
-
-
-/* ToDo: Add here your device specific peripheral access structure typedefs
-         including bit definitions for Pos/Msk macros
-         following is an example for a timer */
-
-/* ========================================================================= */
-/* ============                       TMR                       ============ */
-/* ========================================================================= */
-
-typedef struct
-{
-  __IOM  uint32_t  LOAD;                 /* Offset: 0x000 (R/W) Load Register */
-  __IM   uint32_t  VALUE;                /* Offset: 0x004 (R/ ) Value Register */
-  __IOM  uint32_t  CONTROL;              /* Offset: 0x008 (R/W) Control Register */
-  __OM   uint32_t  INTCLR;               /* Offset: 0x00C ( /W) Clear Interrupt Register */
-  __IM   uint32_t  RIS;                  /* Offset: 0x010 (R/ ) Raw Interrupt Status Register */
-  __IM   uint32_t  MIS;                  /* Offset: 0x014 (R/ ) Interrupt Status Register */
-  __IOM  uint32_t  BGLOAD;               /* Offset: 0x018 (R/W) Background Load Register */
-} <DeviceAbbreviation>_TMR_TypeDef;
-
-/* <DeviceAbbreviation>_TMR LOAD Register Definitions */
-#define <DeviceAbbreviation>_TMR_LOAD_Pos              0
-#define <DeviceAbbreviation>_TMR_LOAD_Msk             (0xFFFFFFFFUL /*<< <DeviceAbbreviation>_TMR_LOAD_Pos*/)
-
-/* <DeviceAbbreviation>_TMR VALUE Register Definitions */
-#define <DeviceAbbreviation>_TMR_VALUE_Pos             0
-#define <DeviceAbbreviation>_TMR_VALUE_Msk            (0xFFFFFFFFUL /*<< <DeviceAbbreviation>_TMR_VALUE_Pos*/)
-
-/* <DeviceAbbreviation>_TMR CONTROL Register Definitions */
-#define <DeviceAbbreviation>_TMR_CONTROL_SIZE_Pos      1
-#define <DeviceAbbreviation>_TMR_CONTROL_SIZE_Msk     (1UL << <DeviceAbbreviation>_TMR_CONTROL_SIZE_Pos)
-
-#define <DeviceAbbreviation>_TMR_CONTROL_ONESHOT_Pos   0
-#define <DeviceAbbreviation>_TMR_CONTROL_ONESHOT_Msk  (1UL /*<< <DeviceAbbreviation>_TMR_CONTROL_ONESHOT_Pos*/)
-
-
-
-/* ================  End of section using anonymous unions  ================ */
-#if   defined (__CC_ARM)
-  #pragma pop
-#elif defined (__ICCARM__)
-  /* leave anonymous unions enabled */
-#elif (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))
-  #pragma clang diagnostic pop
-#elif defined (__GNUC__)
-  /* anonymous unions are enabled by default */
-#elif defined (__TMS470__)
-  /* anonymous unions are enabled by default */
-#elif defined (__TASKING__)
-  #pragma warning restore
-#elif defined (__CSMC__)
-  /* anonymous unions are enabled by default */
-#else
-  #warning Not supported compiler type
-#endif
+#include <core_cm33.h>                          /* Processor and core peripherals */
+#include "system_AN505.h"                       /* System Header */
 
 
 /* ========================================================================= */
@@ -197,34 +192,17 @@ typedef struct
 /* ========================================================================= */
 
 
-/* ToDo: Add here your device peripherals base addresses
-         following is an example for timer */
-
 /* Peripheral and SRAM base address */
-#define <DeviceAbbreviation>_FLASH_BASE       (0x00000000UL)                              /* (FLASH     ) Base Address */
-#define <DeviceAbbreviation>_SRAM_BASE        (0x20000000UL)                              /* (SRAM      ) Base Address */
-#define <DeviceAbbreviation>_PERIPH_BASE      (0x40000000UL)                              /* (Peripheral) Base Address */
+// #define <DeviceAbbreviation>_FLASH_BASE       (0x00000000UL)                              /* (FLASH     ) Base Address */
+// #define <DeviceAbbreviation>_SRAM_BASE        (0x20000000UL)                              /* (SRAM      ) Base Address */
+#define AN505_PERIPH_BASE      (0x40000000UL)    /* (Peripheral) Base Address */
 
 /* Peripheral memory map */
-#define <DeviceAbbreviation>TIM0_BASE         (<DeviceAbbreviation>_PERIPH_BASE)          /* (Timer0    ) Base Address */
-#define <DeviceAbbreviation>TIM1_BASE         (<DeviceAbbreviation>_PERIPH_BASE + 0x0800) /* (Timer1    ) Base Address */
-#define <DeviceAbbreviation>TIM2_BASE         (<DeviceAbbreviation>_PERIPH_BASE + 0x1000) /* (Timer2    ) Base Address */
+#define AN505_UART0_BASE         (AN505_PERIPH_BASE + 0x00200000)
 
-
-/* ========================================================================= */
-/* ============             Peripheral declaration              ============ */
-/* ========================================================================= */
-
-
-/* ToDo: Add here your device peripherals pointer definitions
-         following is an example for timer */
-
-#define <DeviceAbbreviation>_TIM0        ((<DeviceAbbreviation>_TMR_TypeDef *) <DeviceAbbreviation>TIM0_BASE)
-#define <DeviceAbbreviation>_TIM1        ((<DeviceAbbreviation>_TMR_TypeDef *) <DeviceAbbreviation>TIM0_BASE)
-#define <DeviceAbbreviation>_TIM2        ((<DeviceAbbreviation>_TMR_TypeDef *) <DeviceAbbreviation>TIM0_BASE)
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* <Device>_H */
+#endif  /* AN505_H */

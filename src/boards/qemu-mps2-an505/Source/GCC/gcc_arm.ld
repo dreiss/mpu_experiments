@@ -32,8 +32,8 @@
     <o1> Flash Size (in Bytes) <0x0-0xFFFFFFFF:8>
   </h>
   -----------------------------------------------------------------------------*/
-__ROM_BASE = 0x00000000;
-__ROM_SIZE = 0x00040000;
+__ROM_BASE = 0x10000000;
+__ROM_SIZE = 16M;
 
 /*--------------------- Embedded RAM Configuration ----------------------------
   <h> RAM Configuration
@@ -41,8 +41,8 @@ __ROM_SIZE = 0x00040000;
     <o1> RAM Size (in Bytes) <0x0-0xFFFFFFFF:8>
   </h>
  -----------------------------------------------------------------------------*/
-__RAM_BASE = 0x20000000;
-__RAM_SIZE = 0x00020000;
+__RAM_BASE = 0x80000000;
+__RAM_SIZE = 16M;
 
 /*--------------------- Stack / Heap Configuration ----------------------------
   <h> Stack / Heap Configuration
@@ -50,8 +50,8 @@ __RAM_SIZE = 0x00020000;
     <o1> Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
   </h>
   -----------------------------------------------------------------------------*/
-__STACK_SIZE = 0x00000400;
-__HEAP_SIZE  = 0x00000C00;
+__STACK_SIZE = 8K;
+__HEAP_SIZE  = 64K;
 
 /*
  *-------------------- <<< end of configuration section >>> -------------------
@@ -134,7 +134,7 @@ SECTIONS
   /*
    * SG veneers:
    * All SG veneers are placed in the special output section .gnu.sgstubs. Its start address
-   * must be set, either with the command line option ‘--section-start’ or in a linker script,
+   * must be set, either with the command line option '--section-start' or in a linker script,
    * to indicate where to place these veneers in memory.
    */
 /*

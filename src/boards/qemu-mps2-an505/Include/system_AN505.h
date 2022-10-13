@@ -1,7 +1,7 @@
 /*************************************************************************//**
- * @file     system_<Device>.h
+ * @file     system_AN505.h
  * @brief    CMSIS-Core(M) Device Peripheral Access Layer Header File for
- *           Device <Device>
+ *           Device AN505
  * @version  V1.0.0
  * @date     20. January 2021
  *****************************************************************************/
@@ -23,8 +23,8 @@
  * limitations under the License.
  */
 
-#ifndef SYSTEM_<Device>_H   /* ToDo: replace '<Device>' with your device name */
-#define SYSTEM_<Device>_H
+#ifndef SYSTEM_AN505_H
+#define SYSTEM_AN505_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,4 +59,4 @@ extern void SystemCoreClockUpdate (void);
 }
 #endif
 
-#endif /* SYSTEM_<Device>_H */
+#endif /* SYSTEM_AN505_H */
