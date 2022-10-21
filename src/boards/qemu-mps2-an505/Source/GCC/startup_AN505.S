@@ -23,6 +23,14 @@
  * limitations under the License.
  */
 
+#ifdef USING_UNWIND
+#define FNSTART .fnstart
+#define FNEND .fnend
+#else
+#define FNSTART
+#define FNEND
+#endif
+
                 .syntax  unified
                 .arch    armv8-m.main
 
@@ -194,7 +202,7 @@ __Vectors_End:
                 .thumb_func
                 .type    Reset_Handler, %function
                 .globl   Reset_Handler
-                .fnstart
+                FNSTART
 Reset_Handler:
                 ldr      r0, =__INITIAL_SP
                 msr      psp, r0
@@ -256,7 +264,7 @@ Reset_Handler:
 
                 bl       _start
 
-                .fnend
+                FNEND
                 .size    Reset_Handler, . - Reset_Handler
 
 
@@ -266,19 +274,19 @@ Reset_Handler:
                 .thumb_func
                 .type    HardFault_Handler, %function
                 .weak    HardFault_Handler
-                .fnstart
+                FNSTART
 HardFault_Handler:
                 b        .
-                .fnend
+                FNEND
                 .size    HardFault_Handler, . - HardFault_Handler
 
                 .thumb_func
                 .type    Default_Handler, %function
                 .weak    Default_Handler
-                .fnstart
+                FNSTART
 Default_Handler:
                 b        .
-                .fnend
+                FNEND
                 .size    Default_Handler, . - Default_Handler
 
 /* Macro to define default exception/interrupt handlers.
