@@ -427,4 +427,14 @@ Default_Handler:
                 Set_Default_Handler  Interrupt122_Handler
                 Set_Default_Handler  Interrupt123_Handler
 
+
+                // By default, it seems the linker treats .copy.table and
+                // .zero.table as mode RWX, which triggers a linker warning.
+                // However, if we create empty readonly sections here,
+                // we can include them in those output sections, which
+                // forces them to be readonly, eliminating the warning.
+                .section .force_readonly_copy
+                .section .force_readonly_zero
+
+
                 .end

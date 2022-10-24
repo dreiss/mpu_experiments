@@ -157,6 +157,8 @@ SECTIONS
 
   .copy.table :
   {
+    *(.force_readonly_copy)
+
     . = ALIGN(4);
     __copy_table_start__ = .;
 
@@ -175,6 +177,8 @@ SECTIONS
 
   .zero.table :
   {
+    *(.force_readonly_zero)
+
     . = ALIGN(4);
     __zero_table_start__ = .;
     /* Add each additional bss section here */
